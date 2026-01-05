@@ -1,0 +1,11 @@
+[00:00:01.536] Server  LOG      ✓ Ready in 1132ms
+[00:02:49.204] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:02:49.358] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:02:49.358] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[00:02:49.358] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:4000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:4000/","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.3.1","sv":"0.1.3","ts":1767576789242}
+[00:02:50.149] Server  ERROR   [cruising-fleet] Error fetching cached report: Error: Vercel Blob: No token found. Either configure the `BLOB_READ_WRITE_TOKEN` environment variable, or pass a `token` option to your calls.
+[00:03:18.332] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:03:18.404] Server  ERROR   [cruising-fleet] Error fetching cached report: Error: Vercel Blob: No token found. Either configure the `BLOB_READ_WRITE_TOKEN` environment variable, or pass a `token` option to your calls.
+[00:03:18.440] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:03:18.441] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[00:03:18.441] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:4000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:4000/","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.3.1","sv":"0.1.3","ts":1767576818325}
