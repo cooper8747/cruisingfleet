@@ -400,16 +400,16 @@ export default function CruisingFleetReport({ contactIdFilter, showAdmin, }: Pro
               const accountName = primary?.accountName || "this Account";
               return (
                 <div className="mb-2 mt-3 text-sm font-normal text-black">
-                  <a
-                    href={`http://localhost:3000/${primary?.accountId || ""}`}
-                    className="hover:underline"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    View Vessel Activity for{' '}
-                    <span className="font-semibold text-blue-700">{accountName}</span>
-                  </a>
-                </div>
+  <a
+    href={`http://localhost:3000/${primary?.accountId || ""}`}
+    className="hover:underline"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    <span className="italic">View Vessel Activity for</span>{' '}
+    <span className="font-semibold text-blue-700">{accountName}</span>
+  </a>
+</div>
               );
             })()}
             <div className="font-bold text-base mb-2 mt-4">Participation by Status</div>
