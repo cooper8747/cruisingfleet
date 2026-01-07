@@ -401,7 +401,7 @@ export default function CruisingFleetReport({ contactIdFilter, showAdmin, }: Pro
               return (
                 <div className="mb-2 mt-3 text-sm font-normal text-black">
   <a
-    href={`http://localhost:3000/${primary?.accountId || ""}`}
+    href={`https://v0-cruising-fleet-member-activity.vercel.app/${primary?.accountId || ""}`}
     className="hover:underline"
     target="_blank"
     rel="noopener noreferrer"
