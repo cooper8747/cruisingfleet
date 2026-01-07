@@ -47,6 +47,7 @@ function getCategoryColorClass(cat: string) {
 }
 
 export default function CruisingFleetReport({ contactIdFilter, showAdmin, }: Props & { showAdmin?: boolean }) {
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
   const [data, setData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -392,11 +393,8 @@ export default function CruisingFleetReport({ contactIdFilter, showAdmin, }: Pro
             alt="Cruising Fleet Logo"
             style={{ width: '44px', height: 'auto', marginRight: '12px', maxWidth: '12vw', minWidth: '24px', cursor: 'pointer'}}
             onPointerDown={e => {
-              // Only trigger on left-click/touch
               if (e.pointerType === "mouse" && e.button !== 0) return;
-              // Use a ref on the DOM node to persist the timer
-              const node = e.currentTarget;
-              node.longPressTimeout = setTimeout(() => {
+              timerRef.current = setTimeout(() => {
                 if (activeContactId) {
                   window.location.pathname = `/${activeContactId}/admin`;
                 } else {
@@ -404,13 +402,11 @@ export default function CruisingFleetReport({ contactIdFilter, showAdmin, }: Pro
                 }
               }, 3000);
             }}
-            onPointerUp={e => {
-              const node = e.currentTarget;
-              if (node.longPressTimeout) clearTimeout(node.longPressTimeout);
+            onPointerUp={() => {
+              if (timerRef.current) clearTimeout(timerRef.current);
             }}
-            onPointerLeave={e => {
-              const node = e.currentTarget;
-              if (node.longPressTimeout) clearTimeout(node.longPressTimeout);
+            onPointerLeave={() => {
+              if (timerRef.current) clearTimeout(timerRef.current);
             }}
           />
           <h1 className="text-xl sm:text-2xl md:text-3xl font-bold whitespace-nowrap truncate">Member Participation Report</h1>
