@@ -388,7 +388,7 @@ export default function CruisingFleetReport({ contactIdFilter, showAdmin, }: Pro
       <div className="mb-2">
         <div className="flex items-center">
           <img
-            src="/Cruising Fleet Double Flag.jpg"
+            src="/fleet-logo.jpg"
             alt="Cruising Fleet Logo"
             style={{ width: '44px', height: 'auto', marginRight: '12px', maxWidth: '12vw', minWidth: '24px', cursor: 'pointer'}}
             onPointerDown={e => {
