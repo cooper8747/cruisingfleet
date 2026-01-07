@@ -386,7 +386,35 @@ export default function CruisingFleetReport({ contactIdFilter, showAdmin, }: Pro
         </>
       )}
       <div className="mb-2">
-        <h1 className="text-xl sm:text-2xl md:text-3xl font-bold whitespace-nowrap truncate">Member Participation Report</h1>
+        <div className="flex items-center">
+          <img
+            src="/Cruising Fleet Double Flag.jpg"
+            alt="Cruising Fleet Logo"
+            style={{ width: '44px', height: 'auto', marginRight: '12px', maxWidth: '12vw', minWidth: '24px', cursor: 'pointer'}}
+            onPointerDown={e => {
+              // Only trigger on left-click/touch
+              if (e.pointerType === "mouse" && e.button !== 0) return;
+              // Use a ref on the DOM node to persist the timer
+              const node = e.currentTarget;
+              node.longPressTimeout = setTimeout(() => {
+                if (activeContactId) {
+                  window.location.pathname = `/${activeContactId}/admin`;
+                } else {
+                  window.location.pathname = '/admin';
+                }
+              }, 3000);
+            }}
+            onPointerUp={e => {
+              const node = e.currentTarget;
+              if (node.longPressTimeout) clearTimeout(node.longPressTimeout);
+            }}
+            onPointerLeave={e => {
+              const node = e.currentTarget;
+              if (node.longPressTimeout) clearTimeout(node.longPressTimeout);
+            }}
+          />
+          <h1 className="text-xl sm:text-2xl md:text-3xl font-bold whitespace-nowrap truncate">Member Participation Report</h1>
+        </div>
         <div className="text-sm mt-1 font-normal">
           {activeContactId ? (
             <div className="flex items-center gap-2">
