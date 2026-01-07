@@ -324,15 +324,33 @@ export default function CruisingFleetReport({ contactIdFilter, showAdmin, }: Pro
                 }`}
               >
                 {(showAdmin || pathname === '/admin' || pathname.endsWith('/admin')) ? (
-                  <a
-                    href={`https://crm.zoho.com/crm/spyc/tab/Contacts/${a.contactId}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="truncate text-blue-800 underline hover:text-blue-600"
-                    title="View in Zoho CRM"
-                  >
-                    {a.fullName}
-                  </a>
+                  <div className="flex items-center gap-2">
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <button
+                          onClick={e => {
+                            e.stopPropagation();
+                            window.open(`/${a.contactId}/admin`, '_blank');
+                          }}
+                          className="text-gray-600 hover:text-green-700"
+                          tabIndex={-1}
+                          type="button"
+                        >
+                          <UserPlus className="w-4 h-4" />
+                        </button>
+                      </TooltipTrigger>
+                      <TooltipContent>Impersonate Member</TooltipContent>
+                    </Tooltip>
+                    <a
+                      href={`https://crm.zoho.com/crm/spyc/tab/Contacts/${a.contactId}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="truncate text-blue-800 underline hover:text-blue-600"
+                      title="View in Zoho CRM"
+                    >
+                      {a.fullName}
+                    </a>
+                  </div>
                 ) : (
                   <span className="truncate">{a.fullName}</span>
                 )}

@@ -1,4 +1,7 @@
 {
+  "/[contactId]/admin/page": "app/[contactId]/admin/page.js",
+  "/[contactId]/page": "app/[contactId]/page.js",
+  "/_not-found/page": "app/_not-found/page.js",
   "/api/report/route": "app/api/report/route.js",
   "/page": "app/page.js"
 }
