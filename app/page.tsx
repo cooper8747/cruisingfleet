@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip";
 import {
-  Loader2, AlertCircle, Search, Users, Calendar, MapPin, CheckCircle, Ban, UserPlus, Utensils, Mic, Wand,
+  Loader2, AlertCircle, Search, Users, Calendar, MapPin, CheckCircle, Ban, UserPlus, Utensils, Mic, Wand, ChevronDown, ChevronUp
 } from "lucide-react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { usePathname } from "next/navigation";
@@ -223,40 +223,69 @@ export default function CruisingFleetReport({ contactIdFilter, showAdmin, }: Pro
     const CategoryIcon = categoryIconMap[event.category as keyof typeof categoryIconMap] || null;
     return (
       <Card key={index} className="flex flex-col">
-        <CardHeader className="flex flex-row items-start justify-between">
-          <div>
-            <CardTitle className="text-lg cursor-pointer select-none flex items-center gap-2" onClick={() => toggleExpand(event.name)}>
+        <CardHeader className="flex flex-col items-start pb-3">
+          <div className="w-full">
+            {/* 1) Event Category & Expand Toggle Top Row */}
+            <div className="flex items-center gap-3 w-full flex-nowrap mb-2 select-none">
+              {event.category && (
+                <span className={`inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs font-semibold whitespace-nowrap ${getCategoryColorClass(event.category)}`}>
+                  {CategoryIcon} {event.category}
+                </span>
+              )}
+              <div 
+                className="flex items-center gap-1 cursor-pointer"
+                onClick={() => toggleExpand(event.name)}
+              >
+                {expandedEvents[event.name] ? (
+                  <svg width="18" height="18" viewBox="0 0 20 20" className="text-red-600"><polyline points="6 12 10 8 14 12" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/></svg>
+                ) : (
+                  <svg width="18" height="18" viewBox="0 0 20 20" className="text-red-600"><polyline points="6 8 10 12 14 8" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/></svg>
+                )}
+                <span className="text-xs text-muted-foreground select-none">
+                  {expandedEvents[event.name] ? "Collapse List" : "Expand List"}
+                </span>
+              </div>
+            </div>
+
+            {/* Event Name */}
+            <CardTitle className="text-lg cursor-pointer flex items-center gap-2" onClick={() => toggleExpand(event.name)}>
               {(showAdmin || pathname === '/admin' || pathname.endsWith('/admin')) && event.eventId ? (
                 <a
                   href={`https://crm.zoho.com/crm/spyc/tab/Products/${event.eventId}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-blue-800 underline hover:text-blue-600"
+                  className="text-blue-800 underline hover:text-blue-600 line-clamp-2"
                   title="View Product in Zoho CRM"
                   onClick={e => e.stopPropagation()}
                 >
                   {event.name.replace(/^[^:]*:\s*/, "")}
                 </a>
               ) : (
-                event.name.replace(/^[^:]*:\s*/, "")
+                <span className="line-clamp-2">{event.name.replace(/^[^:]*:\s*/, "")}</span>
               )}
-              <span className="flex items-center gap-1">
-                {expandedEvents[event.name] ? (
-                  <svg width="18" height="18" viewBox="0 0 20 20" className="text-red-600"><polyline points="6 12 10 8 14 12" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/></svg>
-                ) : (
-                  <svg width="18" height="18" viewBox="0 0 20 20" className="text-red-600"><polyline points="6 8 10 12 14 8" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/></svg>
-                )}
-                <span className="text-xs text-muted-foreground ml-0.5 select-none">
-                  {expandedEvents[event.name] ? "Collapse List" : "Expand List"}
-                </span>
-              </span>
             </CardTitle>
-            {event.category && (
-              <span className={`inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs font-semibold mb-2 mr-2 ${getCategoryColorClass(event.category)}`}>
-                {CategoryIcon} {event.category}
-              </span>
-            )}
-            <div className="flex gap-4 rounded-lg bg-muted p-3 mt-2 text-sm">
+
+            {/* 2) Venue and Date moved below Event */}
+            <div className="text-xs text-muted-foreground space-y-1 mt-1 mb-3">
+              {event.venue && (
+                <div className="flex gap-1 items-center">
+                  <MapPin className="h-3 w-3" /> {event.venue}
+                </div>
+              )}
+              {event.start && (
+                <div className="flex gap-1 items-center">
+                  <Calendar className="h-3 w-3" />
+                  {event.start}
+                </div>
+              )}
+            </div>
+
+            {/* 3) "Participation by Status" Header */}
+            <div className="text-xs font-semibold text-black mb-1 tracking-wide">
+              Participation by Status
+            </div>
+
+            <div className="flex gap-4 rounded-lg bg-muted p-3 text-sm">
               <Tooltip>
                 <TooltipTrigger asChild>
                   <div className="flex items-center gap-1 cursor-pointer">
@@ -298,23 +327,10 @@ export default function CruisingFleetReport({ contactIdFilter, showAdmin, }: Pro
                 <TooltipContent>Pre-Registered</TooltipContent>
               </Tooltip>
             </div>
-            <div className="text-xs text-muted-foreground space-y-1 mb-2">
-              {event.venue && (
-                <div className="flex gap-1 items-center">
-                  <MapPin className="h-3 w-3" /> {event.venue}
-                </div>
-              )}
-              {event.start && (
-                <div className="flex gap-1 items-center">
-                  <Calendar className="h-3 w-3" />
-                  {event.start}
-                </div>
-              )}
-            </div>
           </div>
         </CardHeader>
         {expandedEvents[event.name] && (
-          <CardContent className="space-y-2">
+          <CardContent className="space-y-2 pt-0">
             {event.attendees.map((a, i) => (
               <div
                 key={i}
@@ -409,7 +425,7 @@ export default function CruisingFleetReport({ contactIdFilter, showAdmin, }: Pro
               if (timerRef.current) clearTimeout(timerRef.current);
             }}
           />
-          <h1 className="text-xl sm:text-2xl md:text-3xl font-bold whitespace-nowrap truncate">Member Participation Report</h1>
+          <h1 className="text-xl sm:text-2xl md:text-3xl font-bold whitespace-nowrap truncate">Member Participation</h1>
         </div>
         <div className="text-sm mt-1 font-normal">
           {activeContactId ? (
@@ -542,7 +558,7 @@ export default function CruisingFleetReport({ contactIdFilter, showAdmin, }: Pro
           {activeContactId && (
             <button
               type="button"
-              className={`flex items-center gap-1 rounded px-3 py-2 text-sm font-semibold border border-gray-300 hover:bg-gray-100 transition-colors ${showOnlyMyEvents ? 'bg-green-600 text-white' : 'bg-blue-600 text-white'}`}
+              className={`flex items-center gap-1 rounded-lg px-3 py-2 text-xs font-semibold bg-blue-600 text-white shadow hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 transition-colors border-0` }
               onClick={() => setShowOnlyMyEvents(v => !v)}
               style={{ whiteSpace: 'nowrap' }}
             >
