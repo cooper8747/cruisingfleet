@@ -120,3 +120,44 @@ Import traces:
 [05:09:45.332] Server  LOG      ✓ Compiled in 108ms
 [05:09:45.510] Server  LOG     [cruising-fleet] Reading cached data from Blob: "cruising-fleet-zoho-report-blob-H1J1WNDTtTNtkkxC4PnPoOmGqEFKla.json"
 [05:09:45.674] Server  LOG     [cruising-fleet] Blob data retrieved: "{\n  \"uploadedAt\": \"2026-01-10T00:49:52.000Z\",\n  \"hasResponse\": true,\n  \"rowCount\": 298\n}"
+[05:29:30.111] Server  LOG      ✓ Compiled in 188ms
+[05:29:30.303] Browser ERROR   uncaughtError: ReferenceError: PopoverSummary is not defined
+[05:29:47.935] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[05:29:47.937] Server  LOG      ✓ Compiled in 340ms
+[05:29:48.981] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3001/7039114000000612206 color: rgb(120, 120, 120) color: inherit {"dp":"/[contactId]","o":"http://localhost:3001/7039114000000612206","sdkn":"@vercel/analytics/next","sdkv":"1.3.1","sv":"0.1.3","ts":1768076375161}
+[05:29:49.206] Server  LOG     [cruising-fleet] Reading cached data from Blob: "cruising-fleet-zoho-report-blob-H1J1WNDTtTNtkkxC4PnPoOmGqEFKla.json"
+[05:29:49.218] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[05:29:49.372] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[05:29:49.372] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/7039114000000612206","route":"/[contactId]"}
+[05:29:49.372] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3001/7039114000000612206 color: rgb(120, 120, 120) color: inherit {"dp":"/[contactId]","o":"http://localhost:3001/7039114000000612206","sdkn":"@vercel/analytics/next","sdkv":"1.3.1","sv":"0.1.3","ts":1768076376478}
+[05:29:49.398] Server  LOG     [cruising-fleet] Reading cached data from Blob: "cruising-fleet-zoho-report-blob-H1J1WNDTtTNtkkxC4PnPoOmGqEFKla.json"
+[05:29:49.404] Server  LOG     [cruising-fleet] Blob data retrieved: "{\n  \"uploadedAt\": \"2026-01-10T00:49:52.000Z\",\n  \"hasResponse\": true,\n  \"rowCount\": 298\n}"
+[05:29:49.548] Server  LOG     [cruising-fleet] Blob data retrieved: "{\n  \"uploadedAt\": \"2026-01-10T00:49:52.000Z\",\n  \"hasResponse\": true,\n  \"rowCount\": 298\n}"
+[05:31:09.753] Server  LOG      ✓ Compiled in 464ms
+[05:31:09.880] Browser ERROR   uncaughtError: ReferenceError: PopoverStatusSummary is not defined
+[05:31:13.868] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[05:31:14.204] Server  LOG      ✓ Compiled in 428ms
+[05:31:14.475] Server  ERROR    ⨯ ReferenceError: PopoverStatusSummary is not defined
+[05:31:14.476] Browser ERROR   uncaughtError: ReferenceError: PopoverStatusSummary is not defined
+[05:31:14.691] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[05:31:14.821] Browser ERROR   uncaughtError: Error: Switched to client rendering because the server rendering errored:
+
+PopoverStatusSummary is not defined
+[05:31:14.822] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[05:31:14.822] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/7039114000000612206","route":"/[contactId]"}
+[05:31:14.822] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3001/7039114000000612206 color: rgb(120, 120, 120) color: inherit {"dp":"/[contactId]","o":"http://localhost:3001/7039114000000612206","sdkn":"@vercel/analytics/next","sdkv":"1.3.1","sv":"0.1.3","ts":1768076461928}
+[05:31:14.971] Browser ERROR   uncaughtError: ReferenceError: PopoverStatusSummary is not defined
+[05:31:29.654] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[05:31:29.673] Server  LOG      ✓ Compiled in 150ms
+[05:31:30.200] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[05:31:30.305] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[05:31:30.305] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/7039114000000612206","route":"/[contactId]"}
+[05:31:30.305] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3001/7039114000000612206 color: rgb(120, 120, 120) color: inherit {"dp":"/[contactId]","o":"http://localhost:3001/7039114000000612206","sdkn":"@vercel/analytics/next","sdkv":"1.3.1","sv":"0.1.3","ts":1768076477410}
+[05:31:30.461] Server  LOG     [cruising-fleet] Reading cached data from Blob: "cruising-fleet-zoho-report-blob-H1J1WNDTtTNtkkxC4PnPoOmGqEFKla.json"
+[05:31:30.636] Server  LOG     [cruising-fleet] Blob data retrieved: "{\n  \"uploadedAt\": \"2026-01-10T00:49:52.000Z\",\n  \"hasResponse\": true,\n  \"rowCount\": 298\n}"
+[05:32:42.126] Server  LOG      ✓ Compiled in 146ms
+[05:32:47.435] Server  LOG      ✓ Compiled in 93ms
+[05:32:53.116] Server  LOG      ✓ Compiled in 88ms
+[05:32:59.532] Server  LOG      ✓ Compiled in 94ms
+[05:33:04.664] Server  LOG      ✓ Compiled in 121ms
+[05:34:04.547] Server  LOG      ✓ Compiled in 198ms

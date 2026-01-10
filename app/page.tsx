@@ -1,5 +1,166 @@
 "use client";
 
+// Accessible Popover for Participation by Status summary
+function PopoverStatusSummary({ attended, noShow, cancelled, total }: { attended: number, noShow: number, cancelled: number, total: number }) {
+  const [open, setOpen] = useState<string | null>(null);
+  useEffect(() => {
+    if (!open) return;
+    function onClick() { setOpen(null); }
+    document.addEventListener('mousedown', onClick);
+    return () => document.removeEventListener('mousedown', onClick);
+  }, [open]);
+  function handleTap(e: React.MouseEvent, which: string) {
+    e.stopPropagation();
+    setOpen(open === which ? null : which);
+  }
+  const boxClasses = "absolute z-50 -top-12 bg-black text-white rounded shadow px-3 py-1.5 text-xs left-1/2 -translate-x-1/2 animate-in fade-in-0 border select-none";
+  return (
+    <div className="flex gap-4 rounded-lg bg-muted/70 px-4 py-2 my-3 text-base items-center relative">
+      <button type="button" aria-label="Total Events" className="flex items-center gap-1 focus:outline-none relative" onClick={e => handleTap(e, 'total')}>
+        <span className="sr-only">Total Events</span>
+        <Users className="h-5 w-5 text-gray-600" />
+        <span className="font-semibold text-black">{total}</span>
+        {open === 'total' && <span className={boxClasses}>Total Events</span>}
+      </button>
+      <button type="button" aria-label="Attended" className="flex items-center gap-1 text-green-600 focus:outline-none relative" onClick={e => handleTap(e, 'attended')}>
+        <span className="sr-only">Attended</span>
+        <CheckCircle className="h-5 w-5" />
+        <span className="font-semibold text-black">{attended}</span>
+        {open === 'attended' && <span className={boxClasses}>Attended</span>}
+      </button>
+      <button type="button" aria-label="No-Show" className="flex items-center gap-1 text-red-600 focus:outline-none relative" onClick={e => handleTap(e, 'noShow')}>
+        <span className="sr-only">No-Show</span>
+        <Ban className="h-5 w-5" />
+        <span className="font-semibold text-black">{noShow}</span>
+        {open === 'noShow' && <span className={boxClasses}>No-Show</span>}
+      </button>
+      <button type="button" aria-label="Cancelled" className="flex items-center gap-1 text-gray-600 focus:outline-none relative" onClick={e => handleTap(e, 'cancelled')}>
+        <span className="sr-only">Cancelled</span>
+        <Ban className="h-5 w-5" />
+        <span className="font-semibold text-black">{cancelled}</span>
+        {open === 'cancelled' && <span className={boxClasses}>Cancelled</span>}
+      </button>
+    </div>
+  );
+}
+
+// Accessible Popover for Participation by Event Type summary
+function PopoverEventTypeSummary({ iconMap, eventTypeCounts, colorClassMap }: { iconMap: Record<string, any>, eventTypeCounts: Record<string, number>, colorClassMap: Record<string, string> }) {
+  const [open, setOpen] = useState<string | null>(null);
+  useEffect(() => {
+    if (!open) return;
+    function onClick() { setOpen(null); }
+    document.addEventListener('mousedown', onClick);
+    return () => document.removeEventListener('mousedown', onClick);
+  }, [open]);
+  function handleTap(e: React.MouseEvent, which: string) {
+    e.stopPropagation();
+    setOpen(open === which ? null : which);
+  }
+  const boxClasses = "absolute z-50 -top-12 bg-black text-white rounded shadow px-3 py-1.5 text-xs left-1/2 -translate-x-1/2 animate-in fade-in-0 border select-none";
+  return (
+    <div className="flex gap-6 bg-muted/50 rounded-lg px-4 py-2 mb-3 text-base items-center relative">
+      {Object.entries(iconMap).map(([type, Icon]) => {
+        const colorClass = colorClassMap[type as keyof typeof colorClassMap] || "text-gray-800";
+        return (
+          <button
+            key={type}
+            type="button"
+            aria-label={type}
+            className={`flex items-center gap-1 cursor-pointer focus:outline-none relative ${colorClass}`}
+            onClick={e => handleTap(e, type)}
+          >
+            <span className="sr-only">{type}</span>
+            <Icon className={`h-5 w-5 ${colorClass}`} />
+            <span className="font-semibold text-black">{eventTypeCounts[type] || 0}</span>
+            {open === type && <span className={boxClasses}>{type}</span>}
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
+// Accessible PopoverSummary for event stats
+function PopoverSummary({ attended, noShow, cancelled, prereg, total }: { attended: number, noShow: number, cancelled: number, prereg: number, total: number }) {
+  const [open, setOpen] = useState<string | null>(null);
+  // Close popover on outside click
+  useEffect(() => {
+    if (!open) return;
+    function onClick(e: MouseEvent) {
+      setOpen(null);
+    }
+    document.addEventListener('mousedown', onClick);
+    return () => document.removeEventListener('mousedown', onClick);
+  }, [open]);
+  // Prevent icon tap from bubbling to document
+  function handleIconTap(e: React.MouseEvent, which: string) {
+    e.stopPropagation();
+    if (open === which) setOpen(null);
+    else setOpen(which);
+  }
+  const boxClasses = "absolute z-50 -top-12 bg-black text-white rounded shadow px-3 py-1.5 text-xs left-1/2 -translate-x-1/2 animate-in fade-in-0 border select-none";
+  return (
+    <div className="flex gap-4 rounded-lg bg-muted p-3 text-sm relative">
+      {/* Total Attendees */}
+      <button
+        type="button"
+        aria-label="Total Attendees"
+        className="flex items-center gap-1 cursor-pointer focus:outline-none"
+        onClick={e => handleIconTap(e, 'total')}
+      >
+        <span className="sr-only">Total Attendees</span>
+        <Users className="h-4 w-4 text-gray-600" /> {total}
+        {open === 'total' && (<span className={boxClasses}>Total Attendees</span>)}
+      </button>
+      {/* Attended */}
+      <button
+        type="button"
+        aria-label="Attended"
+        className="text-green-600 flex items-center gap-1 cursor-pointer focus:outline-none"
+        onClick={e => handleIconTap(e, 'attended')}
+      >
+        <span className="sr-only">Attended</span>
+        <CheckCircle className="h-4 w-4" /> {attended}
+        {open === 'attended' && (<span className={boxClasses}>Attended</span>)}
+      </button>
+      {/* No-Show */}
+      <button
+        type="button"
+        aria-label="No-Show"
+        className="text-red-600 flex items-center gap-1 cursor-pointer focus:outline-none"
+        onClick={e => handleIconTap(e, 'noShow')}
+      >
+        <span className="sr-only">No-Show</span>
+        <Ban className="h-4 w-4" /> {noShow}
+        {open === 'noShow' && (<span className={boxClasses}>No-Show</span>)}
+      </button>
+      {/* Cancelled */}
+      <button
+        type="button"
+        aria-label="Cancelled"
+        className="text-gray-500 flex items-center gap-1 cursor-pointer focus:outline-none"
+        onClick={e => handleIconTap(e, 'cancelled')}
+      >
+        <span className="sr-only">Cancelled</span>
+        <Ban className="h-4 w-4" /> {cancelled}
+        {open === 'cancelled' && (<span className={boxClasses}>Cancelled</span>)}
+      </button>
+      {/* Pre-Registered */}
+      <button
+        type="button"
+        aria-label="Pre-Registered"
+        className="text-yellow-700 flex items-center gap-1 cursor-pointer focus:outline-none"
+        onClick={e => handleIconTap(e, 'prereg')}
+      >
+        <span className="sr-only">Pre-Registered</span>
+        <UserPlus className="h-4 w-4" /> {prereg}
+        {open === 'prereg' && (<span className={boxClasses}>Pre-Registered</span>)}
+      </button>
+    </div>
+  );
+}
+
 import { useState, useEffect, useMemo, useRef } from "react";
 import AdminPanel from "@/components/AdminPanel";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -287,48 +448,13 @@ export default function CruisingFleetReport({ contactIdFilter, showAdmin, }: Pro
               Participation by Status
             </div>
 
-            <div className="flex gap-4 rounded-lg bg-muted p-3 text-sm">
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <div className="flex items-center gap-1 cursor-pointer">
-                    <Users className="h-4 w-4 text-gray-600" /> {event.attendees.length}
-                  </div>
-                </TooltipTrigger>
-                <TooltipContent>Total Attendees</TooltipContent>
-              </Tooltip>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <div className="text-green-600 flex items-center gap-1 cursor-pointer">
-                    <CheckCircle className="h-4 w-4" /> {attended}
-                  </div>
-                </TooltipTrigger>
-                <TooltipContent>Attended</TooltipContent>
-              </Tooltip>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <div className="text-red-600 flex items-center gap-1 cursor-pointer">
-                    <Ban className="h-4 w-4" /> {noShow}
-                  </div>
-                </TooltipTrigger>
-                <TooltipContent>No-Show</TooltipContent>
-              </Tooltip>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <div className="text-gray-500 flex items-center gap-1 cursor-pointer">
-                    <Ban className="h-4 w-4" /> {cancelled}
-                  </div>
-                </TooltipTrigger>
-                <TooltipContent>Cancelled</TooltipContent>
-              </Tooltip>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <div className="text-yellow-700 flex items-center gap-1 cursor-pointer">
-                    <UserPlus className="h-4 w-4" /> {prereg}
-                  </div>
-                </TooltipTrigger>
-                <TooltipContent>Pre-Registered</TooltipContent>
-              </Tooltip>
-            </div>
+            <PopoverSummary
+              attended={attended}
+              noShow={noShow}
+              cancelled={cancelled}
+              prereg={prereg}
+              total={event.attendees.length}
+            />
           </div>
         </CardHeader>
         {expandedEvents[event.name] && (
@@ -483,24 +609,12 @@ export default function CruisingFleetReport({ contactIdFilter, showAdmin, }: Pro
                 else if (s.includes("cancelled") || s.includes("canceled")) cancelled++;
               }
               return (
-                <div className="flex gap-4 rounded-lg bg-muted/70 px-4 py-2 my-3 text-base items-center">
-                  <div className="flex items-center gap-1" title="Total Events">
-                    <Users className="h-5 w-5 text-gray-600" />
-                    <span className="font-semibold text-black">{total}</span>
-                  </div>
-                  <div className="flex items-center gap-1 text-green-600" title="Attended">
-                    <CheckCircle className="h-5 w-5" />
-                    <span className="font-semibold text-black">{attended}</span>
-                  </div>
-                  <div className="flex items-center gap-1 text-red-600" title="No-Show">
-                    <Ban className="h-5 w-5" />
-                    <span className="font-semibold text-black">{noShow}</span>
-                  </div>
-                  <div className="flex items-center gap-1 text-gray-600" title="Cancelled">
-                    <Ban className="h-5 w-5" />
-                    <span className="font-semibold text-black">{cancelled}</span>
-                  </div>
-                </div>
+                <PopoverStatusSummary
+                  attended={attended}
+                  noShow={noShow}
+                  cancelled={cancelled}
+                  total={total}
+                />
               );
             })()}
             <div className="font-bold text-base mb-2 mt-4">Participation by Event Type</div>
@@ -523,22 +637,7 @@ export default function CruisingFleetReport({ contactIdFilter, showAdmin, }: Pro
                 eventTypeCounts[category]++;
               }
               return (
-                <div className="flex gap-6 bg-muted/50 rounded-lg px-4 py-2 mb-3 text-base items-center">
-                  {Object.entries(iconMap).map(([type, Icon]) => {
-                    const colorClass = colorClassMap[type as keyof typeof colorClassMap] || "text-gray-800";
-                    return (
-                      <Tooltip key={type}>
-                        <TooltipTrigger asChild>
-                          <div className={`flex items-center gap-1 cursor-pointer ${colorClass}`}>
-                            <Icon className={`h-5 w-5 ${colorClass}`} />
-                            <span className="font-semibold text-black">{eventTypeCounts[type] || 0}</span>
-                          </div>
-                        </TooltipTrigger>
-                        <TooltipContent>{type}</TooltipContent>
-                      </Tooltip>
-                    );
-                  })}
-                </div>
+                <PopoverEventTypeSummary iconMap={iconMap} eventTypeCounts={eventTypeCounts} colorClassMap={colorClassMap} />
               );
             })()}
           </div>
