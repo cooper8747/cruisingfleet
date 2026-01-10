@@ -1,4 +1,5 @@
 "use client";
+
 import { useState, useEffect, useMemo, useRef } from "react";
 import AdminPanel from "@/components/AdminPanel";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -47,6 +48,7 @@ function getCategoryColorClass(cat: string) {
 }
 
 export default function CruisingFleetReport({ contactIdFilter, showAdmin, }: Props & { showAdmin?: boolean }) {
+  useEffect(() => { document.title = "Member Participation" }, []);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
   const [data, setData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
@@ -461,8 +463,6 @@ export default function CruisingFleetReport({ contactIdFilter, showAdmin, }: Pro
   <a
     href={`https://v0-cruising-fleet-member-activity.vercel.app/${primary?.accountId || ""}`}
     className="hover:underline"
-    target="_blank"
-    rel="noopener noreferrer"
   >
     <span className="italic">View Vessel Activity for</span>{' '}
     <span className="font-semibold text-blue-700">{accountName}</span>

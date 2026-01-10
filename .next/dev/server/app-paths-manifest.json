@@ -1,4 +1,5 @@
 {
+  "/[contactId]/page": "app/[contactId]/page.js",
   "/api/report/route": "app/api/report/route.js",
   "/page": "app/page.js"
 }
