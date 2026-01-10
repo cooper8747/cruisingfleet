@@ -567,6 +567,17 @@ export default function CruisingFleetReport({ contactIdFilter, showAdmin, }: Pro
           )}
         </div>
       </div>
+      <div className="w-full flex mt-1 mb-4">
+        <label className="flex items-center space-x-1 text-xs sm:text-sm">
+          <input
+            type="checkbox"
+            checked={showFutureOnly}
+            onChange={() => setShowFutureOnly((v) => !v)}
+            className="accent-primary h-4 w-4 rounded focus:ring-2 focus:ring-blue-500 border border-gray-300"
+          />
+          <span>Show Only Future Events</span>
+        </label>
+      </div>
       <div className="mb-2 flex items-center gap-4">
         <span
           className="flex items-center gap-2 cursor-pointer select-none"
@@ -583,17 +594,7 @@ export default function CruisingFleetReport({ contactIdFilter, showAdmin, }: Pro
           </span>
         </span>
       </div>
-      <div className="w-full flex mt-1 mb-4">
-        <label className="flex items-center space-x-1 text-xs sm:text-sm">
-          <input
-            type="checkbox"
-            checked={showFutureOnly}
-            onChange={() => setShowFutureOnly((v) => !v)}
-            className="accent-primary h-4 w-4 rounded focus:ring-2 focus:ring-blue-500 border border-gray-300"
-          />
-          <span>Show Only Future Events</span>
-        </label>
-      </div>
+
       {error && (
         <Alert variant="destructive">
           <AlertCircle className="h-4 w-4" />
