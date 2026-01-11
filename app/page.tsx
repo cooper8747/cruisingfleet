@@ -217,7 +217,7 @@ export default function CruisingFleetReport({ contactIdFilter, showAdmin, }: Pro
   const [retryAfter, setRetryAfter] = useState<number | null>(null);
   const [searchFilter, setSearchFilter] = useState("");
   const [refreshing, setRefreshing] = useState(false);
-  const [showFutureOnly, setShowFutureOnly] = useState(false);
+  const [showFutureOnly, setShowFutureOnly] = useState(true);
   const pathname = usePathname();
   const [logs, setLogs] = useState<string[]>([]);
   const exportAnchorRef = useRef<HTMLAnchorElement>(null);
